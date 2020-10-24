@@ -14,7 +14,7 @@ int main()
 		srand(time(0));
 		car1->push(Map::getLaby()); // it pushes car to aynwhere
 		car1->getMap(Map::getLaby()).Render(car1->getLocale()).show_map().clean_map();
-		usleep(100000);
+		usleep(65000);
 		ct++;
 		cls();
 		std::cout << "Move count : " << ct <<"\n";
