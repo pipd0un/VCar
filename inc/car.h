@@ -3,7 +3,6 @@
 
 #include <string>
 #include "map.h"
-
 typedef enum class ways {
     left = 0,
     right = 1,
