@@ -13,8 +13,9 @@ Car::Car(Map& mapp){
     }
 };
 void Car::push(Map& m){
-    m_CURRENT_WAYS = 0;
+    reset_checks();
     check_ways(m);
+    countOpenWay();
     lock_back();
     while(true){
         way res = (way)(rand() % 4);
@@ -22,6 +23,7 @@ void Car::push(Map& m){
             std::cout << "\nRunning to " << (int)res << "\n";
             if(go(res)){
                 std::cout << "Successfully going ahead ! \n";
+                m_CURRENT_WAYS = 0;
                 save_move(res);
                 break;
             }
@@ -73,7 +75,6 @@ bool Car::go(way w){
 }
 void Car::lock_back(){
     int l_m = (int)m_last_move;
-    countOpenWay();
     if(this->m_CURRENT_WAYS > 1){
         if(l_m == 0){
             this->m_open_ways[1] = 0;
@@ -99,7 +100,6 @@ void Car::reset_checks(){
     }
 }
 void Car::check_ways(Map& m){
-    reset_checks();
     if(m.getBlocks(m_locale[0],m_locale[1]-1) == ' '){
         m_open_ways[0] = 1;
     }
@@ -115,7 +115,6 @@ void Car::check_ways(Map& m){
     if(m_locale[0] == m.get_start_loc()[0] && m_locale[1] == m.get_start_loc()[1]){
         m_open_ways[3] = 0;
     }
-    countOpenWay();
 }
 void Car::save_move(way w){
     this->m_last_move = w;
