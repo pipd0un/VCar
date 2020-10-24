@@ -41,10 +41,6 @@ int* Car::getLocale(){
 Map& Car::getMap(Map& m){
     return m;
 }
-void cls(void){
-    system("cls||clear");
-    return;
-}
 
 
 int Car::getCurr_ways(){
@@ -55,15 +51,15 @@ bool Car::go(way w){
     int where = (int)w;
     if(where == 0){
         m_locale[1] = m_locale[1] - 1;
-        printf("Gone to left\n");
+        printf("Gone to left  \n");
 		return true;
     }else if(where == 1){
         m_locale[1] = m_locale[1] + 1;
-        printf("Gone to right\n");
+        printf("Gone to right \n");
 		return true;
     }else if(where == 2){
         m_locale[0] = m_locale[0] - 1;
-        printf("Gone to top\n");
+        printf("Gone to top   \n");
 		return true;
     }else if(where == 3){
         m_locale[0] = m_locale[0] + 1;

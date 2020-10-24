@@ -37,6 +37,4 @@ class Car {
         bool go(way);           // sets car's new location after move
         void save_move(way);    // 
 };
-
-void cls();
 #endif
