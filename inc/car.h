@@ -2,7 +2,8 @@
 #define CAR_H
 
 #include <string>
-#include "map.h"
+
+class Map;
 
 typedef enum class ways {
     left = 0,
@@ -20,6 +21,7 @@ class Car {
         bool isFinish(int ending[]); // is needed for main loop
         int* getLocale();
         static Map& getMap(Map&);
+        int getCurr_ways();
         
     private :
         int m_locale[2];        // location

@@ -1,4 +1,5 @@
 #include "car.h"
+#include "map.h"
 #include <stdlib.h>
 #include <string>
 #include <iostream>
@@ -12,6 +13,7 @@ Car::Car(Map& mapp){
     }
 };
 void Car::push(Map& m){
+    m_CURRENT_WAYS = 0;
     check_ways(m);
     lock_back();
     while(true){
@@ -46,6 +48,10 @@ void cls(void){
     return;
 }
 
+
+int Car::getCurr_ways(){
+    return m_CURRENT_WAYS;
+}
 // privates ..
 bool Car::go(way w){
     int where = (int)w;
@@ -71,6 +77,7 @@ bool Car::go(way w){
 }
 void Car::lock_back(){
     int l_m = (int)m_last_move;
+    countOpenWay();
     if(this->m_CURRENT_WAYS > 1){
         if(l_m == 0){
             this->m_open_ways[1] = 0;
@@ -85,8 +92,8 @@ void Car::lock_back(){
 }
 void Car::countOpenWay(){
     for(int i=0;i<4;i++){
-        if(this->m_open_ways[i] == 1){
-            this->m_CURRENT_WAYS ++;
+        if(m_open_ways[i] == 1){
+            m_CURRENT_WAYS ++;
         }
     }
 }
@@ -108,6 +115,9 @@ void Car::check_ways(Map& m){
     }
     if(m.getBlocks(m_locale[0]+1,m_locale[1]) == ' '){
         m_open_ways[3] = 1;
+    }
+    if(m_locale[0] == m.get_start_loc()[0] && m_locale[1] == m.get_start_loc()[1]){
+        m_open_ways[3] = 0;
     }
     countOpenWay();
 }

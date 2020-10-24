@@ -147,5 +147,7 @@ class Map {
         char wall[17][17];
         int m_start[2];
         int m_end[2];
-}Map::Map::Laby;
+};
+
+inline Map Map::Laby;
 #endif 
