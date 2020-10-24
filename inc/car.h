@@ -17,7 +17,6 @@ class Car {
     public :
         Car(Map& mapp);
         void push(Map& m);
-        std::string show_move();
         bool isFinish(int ending[]); // is needed for main loop
         int* getLocale();
         static Map& getMap(Map&);

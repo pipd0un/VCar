@@ -13,14 +13,13 @@ int main()
 	while(!car1->isFinish(Map::getLaby().get_end_loc())){
 		srand(time(0));
 		car1->push(Map::getLaby()); // it pushes car to aynwhere
-		car1->getMap(Map::getLaby()).Render(car1->getLocale()); 
-		car1->getMap(Map::getLaby()).show_map().clean_map();
+		car1->getMap(Map::getLaby()).Render(car1->getLocale()).show_map().clean_map();
 		usleep(65000);
 		ct++;
 		cls();
-		std::cout <<"Move count : " << ct <<"\n";
+		std::cout << "Move count : " << ct <<"\n";
 		std::cout << "Available ways : " << car1->getCurr_ways() <<"\n";
-		car1->show_move();
+		std::cout << "Location : " << car1->getLocale()[0] << " - " << car1->getLocale()[1] << "\n";
 	}
 	std::cout << "Hello world!" << std::endl;
 	delete car1;

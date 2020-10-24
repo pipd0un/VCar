@@ -28,10 +28,6 @@ void Car::push(Map& m){
         }
     }
 }
-std::string Car::show_move(){
-    std::string rt = m_locale[0] + " - " + m_locale[1];
-    return rt;
-};
 bool Car::isFinish(int ending[]){
     if(m_locale[0] == ending[0] && m_locale[1] == ending[1]){
         return 1;

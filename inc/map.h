@@ -120,11 +120,12 @@ class Map {
         int* get_start_loc(){
             return m_start;
         }
-        void Render(int location[]){
+        Map& Render(int location[]){
             int car_point[2];
             car_point[0] = location[0];
             car_point[1] = location[1];
             wall[car_point[0]][car_point[1]] = 'V';
+            return *this;
         }
         int* get_end_loc(){
             return m_end;
