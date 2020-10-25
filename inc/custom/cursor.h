@@ -30,7 +30,7 @@ void getCursor(int* x, int* y) {
 #include <curses.h> // similar name for windows
 initscr(); // is required before getxy call
 getyx(curscr, y, x);
-void getyx(WINDOW *win, int y, int x);//bu ne
+void getyx(WINDOW *win, int y, int x);
 #endif
 
 
