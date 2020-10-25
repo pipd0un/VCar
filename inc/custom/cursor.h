@@ -1,5 +1,5 @@
-#ifndef CUSTOM_H
-#define CUSTOM_H
+#ifndef CURSOR_H
+#define CURSOR_H
 
 #ifdef _WIN32
 #include <windows.h>
@@ -32,5 +32,7 @@ initscr(); // is required before getxy call
 getyx(curscr, y, x);
 void getyx(WINDOW *win, int y, int x);//bu ne
 #endif
+
+
 
 #endif //..
