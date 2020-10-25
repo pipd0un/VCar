@@ -21,6 +21,8 @@ class Car {
         int* getLocale();
         static Map& getMap(Map&);
         int getCurr_ways();
+        void show_move();
+        
         
     private :
         int m_locale[2];        // location

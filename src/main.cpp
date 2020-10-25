@@ -18,8 +18,8 @@ int main()
 		#elif _linux_
 		SetCursorPosition(0,0);
 		#endif
-		
-
+		std::cout << "Move count : " << ct <<"    \n";
+		car1->show_move();
 		car1->getMap(Map::getLaby()).setLaby();
 		srand(time(0));
 		car1->push(Map::getLaby()); // it pushes car to aynwhere
@@ -27,7 +27,6 @@ int main()
 		usleep(100000);
 		ct++;
 	}
-	std::cout << "Move count : " << ct <<"\n";
 	std::cout << "Hello world!" << std::endl;
 	delete car1;
 	std::cout << "Car Shushified ...\n";

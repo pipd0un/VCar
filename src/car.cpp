@@ -41,7 +41,9 @@ int* Car::getLocale(){
 Map& Car::getMap(Map& m){
     return m;
 }
-
+void Car::show_move(){
+    std::cout << "Location : " << m_locale[0] << " - " << m_locale[1] << "    ";
+}
 
 int Car::getCurr_ways(){
     return m_CURRENT_WAYS;
