@@ -4,7 +4,8 @@
 
 #include "map.h"
 #include "car.h"
-#include "custom/cursor.h"
+#include "custom/cursor.hpp"
+#include "custom/custom.hpp"
 
 
 #endif //..

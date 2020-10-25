@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 class Map;
 
 typedef enum class ways {
@@ -19,9 +20,9 @@ class Car {
         void push(Map& m);
         bool isFinish(int ending[]); // is needed for main loop
         int* getLocale();
-        static Map& getMap(Map&);
         int getCurr_ways();
         void show_move();
+        int get_move();
         
         
     private :
@@ -38,5 +39,8 @@ class Car {
         void countOpenWay();    // this will be important if I work with decision points
         bool go(way);           // sets car's new location after move
         void save_move(way);    // 
+
 };
+
+
 #endif

@@ -1,7 +1,6 @@
 #include "car.h"
 #include "map.h"
 #include <stdlib.h>
-#include <string>
 #include <iostream>
 
 // publics
@@ -38,16 +37,18 @@ bool Car::isFinish(int ending[]){
 int* Car::getLocale(){
     return m_locale;
 };
-Map& Car::getMap(Map& m){
-    return m;
-}
 void Car::show_move(){
     std::cout << "Location : " << m_locale[0] << " - " << m_locale[1] << "    ";
 }
-
+int Car::get_move(){
+    int move = (int)m_last_move;
+    return move;
+};
 int Car::getCurr_ways(){
     return m_CURRENT_WAYS;
 }
+
+
 // privates ..
 bool Car::go(way w){
     int where = (int)w;
