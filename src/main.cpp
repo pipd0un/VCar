@@ -4,7 +4,8 @@
 #include <time.h>  // srand( time() ) seeding
 
 
-int main()
+int 
+main()
 {
 	Map::getLaby().setLaby(); // configuring class (singleton) members values 
 	Car *car1 = new Car(Map::getLaby()); // creating a car object
@@ -20,14 +21,13 @@ int main()
 		#endif
 		std::cout << "Move count : " << ct <<"    \n";
 		car1->show_move();
-		car1->getMap(Map::getLaby()).setLaby();
 		srand(time(0));
 		car1->push(Map::getLaby()); // it pushes car to aynwhere
-		car1->getMap(Map::getLaby()).Render(car1->getLocale()).show_map().clean_map();
-		usleep(100000);
-		ct++;
-	}
-	std::cout << "Hello world!" << std::endl;
+		Map::getLaby().Render(car1->getLocale()).show_map().clean_map(); // show_map() recommended but not needed.
+		usleep(100000);													// Also after Render(), using clean_map() is mandatory.
+		ct++;														   // If remove show_map() and usleep() the car should get
+	}																  // finish immediately without showing you the process .
+	std::cout << "Hello world! \n";
 	delete car1;
 	std::cout << "Car Shushified ...\n";
 	std::cin.get();
