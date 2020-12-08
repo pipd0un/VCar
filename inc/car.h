@@ -2,8 +2,6 @@
 #define CAR_H
 
 #include <string>
-
-
 class Map;
 
 typedef enum class ways {
@@ -16,13 +14,14 @@ typedef enum class ways {
 class Car {
 
     public :
-        Car(Map& mapp);
+        Car(Map& mapp,std::string);
         void push(Map& m);
         bool isFinish(int ending[]); // is needed for main loop
         int* getLocale();
         int getCurr_ways();
         void show_move();
         int get_move();
+        std::string getName();
         
         
     private :
@@ -30,6 +29,7 @@ class Car {
         bool m_open_ways[4];    // available moves
         way m_last_move;        //
         int m_CURRENT_WAYS;     // available move number
+        std::string name;
 
     private:
         void set_car_loc(Map&); // needed for constructor (first location)

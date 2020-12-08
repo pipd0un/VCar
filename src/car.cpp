@@ -4,7 +4,7 @@
 #include <iostream>
 
 // publics
-Car::Car(Map& mapp){
+Car::Car(Map& mapp,std::string n) : name(n) {
     m_CURRENT_WAYS = 0;
     set_car_loc(mapp);
     for(int i;i<4;i++){
@@ -46,6 +46,9 @@ int Car::get_move(){
 };
 int Car::getCurr_ways(){
     return m_CURRENT_WAYS;
+}
+std::string Car::getName(){
+    return name;
 }
 
 
