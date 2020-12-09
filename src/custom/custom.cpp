@@ -98,18 +98,13 @@ namespace Memory
             std::cout << "\n";
         }
     };
-    bool Rotation::is_optimised()
-    {
-        if (isOptimised == 1)
-        {
-            return true;
+    
+    void Rotation::optimise(){
+        while(!is_optimised()){
+            semi_optimise();
         }
-        else
-        {
-            return false;
-        }
+        std::cout << "\nTotally optimised\n";
     }
-
     // private funcs
     void Rotation::rot_safeAlloc()
     {
@@ -245,6 +240,7 @@ namespace Memory
                         std::cout << "new Move count : " << newSize << "\n";
                         buff_mov = any_safeAlloc(newSize);                   // alloca mem
                         buff_mov = fill_rot_buffer(buff_mov, newSize, i, j); //// main factor . It filles buffer with reduced moves
+                        std::cout << "semi optimise done!\n\n";
                         broken = 1;
                     }
                     break;
@@ -262,11 +258,21 @@ namespace Memory
         {
             clean_rot(buff_mov, newSize);
         }
-        std::cout << "semi optimise done!\n\n";
         if (newSize == m_mov)
         {
             isOptimised = 1;
         }
         m_mov = newSize;
     }; // on here..
+    bool Rotation::is_optimised()
+    {
+        if (isOptimised == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 };     // namespace Memory

@@ -30,10 +30,9 @@ namespace Memory
             m_path = "bin/" + name + ".txt";
         };
         ~Rotation();
-        bool is_optimised();  // (D) ...
-        void semi_optimise(); // (D) ...
         void create();        // (D)
         void get();           // (D)
+        void optimise();
     private:                  // private functions
         void rot_safeAlloc(); // (D)
         int **any_safeAlloc(int);
@@ -41,6 +40,8 @@ namespace Memory
         void clean_rot(int **, int);
         int **fill_rot_buffer(int **buff, int size, int part1, int part2);
         void rot_fillBack(int **, int);
+        bool is_optimised();  // (D) ...
+        void semi_optimise(); // (D) ...
 
     private:
         int m_mov;

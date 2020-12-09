@@ -4,6 +4,7 @@
 
 int main()
 {
+	srand(time(0));
 	std::string name;
 	/*
 	std::cout << "Set your car's name : ";
@@ -26,7 +27,7 @@ int main()
 
 		std::cout << "Move count : " << ct << "    \n";
 		car1->show_move();
-		srand(time(0));
+		
 		car1->push(Map::getLaby()); // it pushes car to aynwhere
 		//Map::getLaby().Render(car1->getLocale()).clean_map();
 		Map::getLaby().Render(car1->getLocale()).show_map().clean_map(); // show_map() recommended but not needed.
@@ -42,10 +43,7 @@ int main()
 
 	rot->create();
 	rot->get();
-
-	while(!rot->is_optimised()){
-		rot->semi_optimise();
-	}
+	rot->optimise();
 
 	delete car1;
 	delete rot;
