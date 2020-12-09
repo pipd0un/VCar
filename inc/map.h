@@ -5,6 +5,7 @@
 
 class Map {
     public :
+        void generateLab(); // working on this .. 
         static Map& getLaby(){
             return Laby ;
         };

@@ -28,9 +28,9 @@ int main()
 		car1->show_move();
 		srand(time(0));
 		car1->push(Map::getLaby()); // it pushes car to aynwhere
-		Map::getLaby().Render(car1->getLocale()).clean_map();
-		//	Map::getLaby().Render(car1->getLocale()).show_map().clean_map(); // show_map() recommended but not needed.
-		//	usleep(100000); // Also after Render(), using clean_map() is mandatory.
+		//Map::getLaby().Render(car1->getLocale()).clean_map();
+		Map::getLaby().Render(car1->getLocale()).show_map().clean_map(); // show_map() recommended but not needed.
+		usleep(100000); // Also after Render(), using clean_map() is mandatory.
 		ct++; // If remove show_map() and usleep() the car should get
 			  // finish immediately without showing you the process .
 		Io::File::getFile()->seek(ct, car1->getLocale(), car1->get_move());
@@ -41,6 +41,7 @@ int main()
 	Memory::Rotation *rot = new Memory::Rotation(Io::File::getFile()->bring_line2mem(), name);
 
 	rot->create();
+	rot->get();
 
 	while(!rot->is_optimised()){
 		rot->semi_optimise();
