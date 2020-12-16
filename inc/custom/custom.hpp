@@ -1,6 +1,7 @@
-#include <iostream>
 #ifndef CUSTOM_HPP
 #define CUSTOM_HPP
+
+#include <iostream>
 
 namespace Io
 {
@@ -30,9 +31,10 @@ namespace Memory
             m_path = "bin/" + name + ".txt";
         };
         ~Rotation();
-        void create();        // (D)
-        void get();           // (D)
+        void create(); // (D)
+        void get();    // (D)
         void optimise();
+
     private:                  // private functions
         void rot_safeAlloc(); // (D)
         int **any_safeAlloc(int);

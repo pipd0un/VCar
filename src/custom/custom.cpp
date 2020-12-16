@@ -1,5 +1,4 @@
 #include "custom/custom.hpp"
-#include "car.h"
 #include <fstream>
 #include <cstdlib>
 
@@ -61,9 +60,9 @@ namespace Memory
     {
         clean_rot();
         if (remove(m_path.c_str()) != 0)
-            std::cerr << "File deletion failed";
+            std::cerr << "File deletion failed\n";
         else
-            std::cout << "Resource cleaned successfully";
+            std::cout << "Resource cleaned successfully\n";
     };
     void Rotation::create()
     {
@@ -87,7 +86,7 @@ namespace Memory
             }
         }
         in.close();
-        std::cout << "Rotation is ready to optimise now !\n";
+        std::cout << "\nRotation is ready to optimise now !\n";
     };
     void Rotation::get()
     {

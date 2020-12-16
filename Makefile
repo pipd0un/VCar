@@ -18,12 +18,15 @@ LFLAGS =
 OUTPUT	:= bin
 
 # define source directory
-SRC		:= src \
-		   src/custom
+SRC		:= \
+		   src \
+		   src/custom \
+		   src/main 
 
 # define include directory
 INCLUDE	:= inc \
-		   inc/custom
+		   inc/custom \
+		   inc/Dependencies
 
 # define lib directory
 LIB		:= lib
