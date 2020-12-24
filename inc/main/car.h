@@ -17,6 +17,7 @@ class Car {
     public :
         Car(Map*,std::string);
         void push(Map*);
+        void _push(Map*);
         bool isFinish(int[]); // is needed for main loop
         int* getLocale();
         int getCurr_ways();
@@ -40,6 +41,9 @@ class Car {
         void countOpenWay();    // this will be important if I work with decision points
         bool go(way);           // sets car's new location after move
         void save_move(way);    // 
+
+    // redesigned
+        void _check_ways(Map*);
 
 };
 

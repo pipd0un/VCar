@@ -57,19 +57,19 @@ bool Car::go(way w){
     int where = (int)w;
     if(where == 0){
         m_locale[1] = m_locale[1] - 1;
-        printf("Gone to left  \n");
+        std::cout << "Gone to left  \n";
 		return true;
     }else if(where == 1){
         m_locale[1] = m_locale[1] + 1;
-        printf("Gone to right \n");
+        std::cout << "Gone to right  \n";
 		return true;
     }else if(where == 2){
         m_locale[0] = m_locale[0] - 1;
-        printf("Gone to top   \n");
+        std::cout << "Gone to top   \n";
 		return true;
     }else if(where == 3){
         m_locale[0] = m_locale[0] + 1;
-        printf("Gone to bottom\n");
+        std::cout << "Gone to bottom   \n";
 		return true;
     }else{
         return false;
@@ -128,3 +128,39 @@ void Car::set_car_loc(Map* m){
 }
 
 
+// redesigned
+void Car::_push(Map* m){
+    reset_checks();
+    _check_ways(m);
+    countOpenWay();
+    lock_back();
+    while(true){
+        way res = (way)(rand() % 4);
+        if(m_open_ways[(int)res] == true){
+            std::cout << "\nRunning to " << (int)res << "\n";
+            if(go(res)){
+                std::cout << "Successfully going ahead ! \n";
+                m_CURRENT_WAYS = 0;
+                save_move(res);
+                break;
+            }
+        }
+    }
+}
+void Car::_check_ways(Map* m){
+    if(m->_getBlocks(m_locale[0],m_locale[1]-1) == ' '){
+        m_open_ways[0] = 1;
+    }
+    if(m->_getBlocks(m_locale[0],m_locale[1]+1) == ' '){
+        m_open_ways[1] = 1;
+    }
+    if(m->_getBlocks(m_locale[0]-1,m_locale[1]) == ' '){
+        m_open_ways[2] = 1;
+    }
+    if(m->_getBlocks(m_locale[0]+1,m_locale[1]) == ' '){
+        m_open_ways[3] = 1;
+    }
+    if(m_locale[0] == m->get_start_loc()[0] && m_locale[1] == m->get_start_loc()[1]){
+        m_open_ways[3] = 0;
+    }
+}

@@ -8,6 +8,8 @@ namespace Io
     class File
     {
     public:
+        void generateScheme(char **, int *);
+        void cleanScheme();
         ~File() { delete creator; };
         void seek(int &, int[2], int);
         static File *getFile();
@@ -19,6 +21,8 @@ namespace Io
         std::string m_path;
         static File *creator;
     };
+
+    int ask_config();
 }; // namespace Io
 namespace Memory
 {

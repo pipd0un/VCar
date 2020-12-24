@@ -1,9 +1,46 @@
 #include "custom/custom.hpp"
 #include <fstream>
 #include <cstdlib>
+#include "main/map.h"
 
 namespace Io
 {
+    void File::cleanScheme()
+    {
+        if (remove("Data/LabScheme.txt") != 0)
+            std::cerr << "File deletion failed\n";
+        else
+            std::cout << "Resource cleaned successfully\n";
+    };
+    void File::generateScheme(char **lab, int *size)
+    {
+        std::ofstream fout;
+        fout.open("Data/LabScheme.txt", std::ofstream::app);
+        if (fout.is_open())
+        {
+            for (int i = 0; i < size[0]; i++)
+            {
+                for (int j = 0; j < size[1]; j++)
+                {
+                    if (lab[i][j] == ' ')
+                    {
+                        fout << '0';
+                    }
+                    else
+                    {
+                        fout << lab[i][j]; // << "  ";
+                    }
+                }
+                fout << "\n";
+            }
+        }
+        else
+        {
+            std::cout << "Folder can not open...";
+            std::cin.get();
+        }
+        fout.close();
+    };
     int File::bring_line2mem()
     {
         // open the doc and count lines
@@ -53,6 +90,32 @@ namespace Io
         fout.close();
     };
     inline File *File::creator;
+
+    int ask_config()
+    {
+        // then complete specific points
+        std::cout << "\n Want to config ?(y/n) : ";
+        char ans;
+        while (1)
+        {
+            std::cin >> ans;
+            if (ans == 'y' || ans == 'n')
+            {
+                break;
+            }
+            std::cout << "\nWrong input ..\n";
+            std::cout << "> ";
+        }
+        //std::cout << "answer : " << ans ;
+        if (ans == 'y')
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
 }; // namespace Io
 namespace Memory
 {
@@ -97,13 +160,15 @@ namespace Memory
             std::cout << "\n";
         }
     };
-    
-    void Rotation::optimise(){
-        while(!is_optimised()){
+    void Rotation::optimise()
+    {
+        while (!is_optimised())
+        {
             semi_optimise();
         }
         std::cout << "\nTotally optimised\n";
     }
+
     // private funcs
     void Rotation::rot_safeAlloc()
     {
@@ -232,7 +297,8 @@ namespace Memory
                 {
                     if (i != j)
                     {
-                        std::cout << "\n"  << m_rot[i][0] << "," << m_rot[i][1] << "," << m_rot[i][2] << "," << m_rot[i][3]
+                        std::cout << "\n"
+                                  << m_rot[i][0] << "," << m_rot[i][1] << "," << m_rot[i][2] << "," << m_rot[i][3]
                                   << " = " << m_rot[j][0] << "," << m_rot[j][1] << "," << m_rot[j][2] << "," << m_rot[j][3] << "\n";
                         std::cout << "Reduced move counts : " << j - i << "\n";
                         newSize = m_mov - (j - i);
@@ -274,4 +340,5 @@ namespace Memory
             return false;
         }
     }
-};     // namespace Memory
+
+}; // namespace Memory

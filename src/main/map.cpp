@@ -1,7 +1,105 @@
 #include "main/map.h"
 #include <iostream>
+#include <fstream>
+#include <time.h>
 
+// private
+void Map::map_safeAlloc()
+{
+    xwall = (char **)malloc(size[0] * sizeof(char *));
+    if (!xwall)
+    {
+        std::cerr << "Error alloca , bailing out ..\n";
+        exit(-1);
+    }
 
+    for (int i = 0; i < size[0]; i++)
+    {
+        xwall[i] = (char *)malloc(size[1] * sizeof(char));
+        if (!xwall[i]) /* If `malloc` failed */
+        {
+            for (int j = 0; j < i; j++) /* free previously allocated memory */
+            {
+                free(xwall[j]);
+            }
+            free(xwall);
+
+            std::cerr << "Error, alloca couldnt completed, bailing out ..\n";
+            exit(-1);
+        }
+    }
+}
+void Map::map_deAlloc()
+{
+    if (!xwall)
+    {
+        for (int i = 0; i < size[0]; i++)
+        {
+            if (!xwall[i])
+            {
+                free(xwall[i]);
+            }
+        }
+        free(xwall);
+    }
+}
+
+// public
+void Map::config_manual(int ans)
+{
+    int term = 0;
+    int points;
+    int edge = size[0] * size[1];
+    if (ans == 1)
+    {
+        while (1)
+        {
+            std::cout << "how many points you wanna change ? : ";
+            std::cin >> points;
+            if (ans >= edge || ans <= 0)
+            {
+                std::cout << "\nWrong input ..\n";
+                std::cout << "> ";
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (term < points)
+        {
+            int i, j;
+            std::cout << "Location[ ][ ] : ";
+            std::cin >> i;
+            std::cout << ",";
+            std::cin >> j;
+            std::cout << "\n";
+            if (xwall[i][j] == ' ')
+            {
+                xwall[i][j] = '*';
+            }
+            else
+            {
+                xwall[i][j] = ' ';
+            }
+
+            term++;
+        }
+    }
+    else if (ans == -1)
+    {
+        std::cout << "Okay, I wont config your map !\n";
+    }
+    std::cout << "Successfully configurated !\n";
+}
+int *Map::getSize()
+{
+    return size;
+};
+char **Map::get_map()
+{
+    return xwall;
+}
 Map *Map::getLaby()
 {
     if (Laby == nullptr)
@@ -14,7 +112,7 @@ void Map::setLaby()
 {
     m_end[0] = 0;
     m_end[1] = 7;
-    m_start[0] = 15;
+    m_start[0] = 16;
     m_start[1] = 9;
     for (int i = 0; i < 17; i++)
     {
@@ -146,17 +244,15 @@ void Map::setLaby()
 Map *Map::show_map()
 {
     int i, j;
-    std::cout << "----------------------------------------------------\n" ;
     for (i = 0; i < 17; i++)
     {
-        printf("|  ");
+        std::cout << "|  ";
         for (j = 0; j < 17; j++)
         {
-            printf("%c  ", wall[i][j]);
+            std::cout << wall[i][j] << "  ";
         }
-        printf("|%d\n", i);
+        std::cout << "|" << i << "\n";
     }
-    std::cout << "----------------------------------------------------\n" ;
     return this;
 };
 int *Map::get_start_loc()
@@ -165,10 +261,7 @@ int *Map::get_start_loc()
 }
 Map *Map::Render(int location[])
 {
-    int car_point[2];
-    car_point[0] = location[0];
-    car_point[1] = location[1];
-    wall[car_point[0]][car_point[1]] = 'V';
+    wall[location[0]][location[1]] = 'V';
     return this;
 }
 int *Map::get_end_loc()
@@ -193,4 +286,183 @@ void Map::clean_map()
     }
 }
 
+//redesigneds
+void Map::setLabyFromScheme()
+{
+    // size[2] = {i,j};
+    char ch;
+    int row = 0;
+    int col = 0;
+
+    std::ifstream in;
+    in.open("Data/LabScheme.txt");
+    while (in.get(ch))
+    {
+        col++;
+        if (ch == '\n')
+        {
+            row++;
+            col--;
+        }
+    };
+    col = col / row;
+    in.close();
+    size = (int *)malloc(2 * sizeof(int));
+    size[0] = row;
+    size[1] = col;
+    map_safeAlloc();
+    in.open("Data/LabScheme.txt");
+    if (in.is_open())
+    {
+        for (int i = 0; i < size[0]; i++)
+        {
+            for (int j = 0; j < size[1]; j++)
+            {
+                in >> xwall[i][j];
+                if (xwall[i][j] == '0')
+                {
+                    xwall[i][j] = ' ';
+                }
+
+                /*
+                if (i == 0 && xwall[i][j] == '0')
+                {
+                    m_end[0] = i;
+                    m_end[1] = j;
+                }
+                if (i == size[0] - 1 && xwall[i][j] == '0')
+                {
+                    m_start[0] = i;
+                    m_start[1] = j;
+                }
+                */
+            }
+        }
+    }
+    else
+    {
+        std::cout << "Folder can not open...";
+        std::cin.get();
+    }
+    m_end[0] = 0;
+    m_end[1] = 7;
+    m_start[0] = 14;
+    m_start[1] = 8;
+    in.close();
+}
+char Map::_getBlocks(int i, int j)
+{
+    //std::cout << "istenen : " << i << "ve " << j << "\n";
+    if (i < 0 || i >= size[0] || j < 0 || j >= size[1])
+    {
+        return '*';
+    }
+    else
+    {
+        return xwall[i][j];
+    }
+}
+void Map::generateLab()
+{
+    srand(time(0));
+    //int randNum = rand()%(max-min + 1) + min;
+    size = (int *)malloc(2 * sizeof(int));
+    size[0] = rand() % (25 - 10 + 1) + 10;
+    size[1] = rand() % (25 - 10 + 1) + 10;
+    map_safeAlloc();
+    m_end[0] = 0;
+    m_end[1] = rand() % ((size[1] - 1 - 1) - 1 + 1) + 1;
+    m_start[0] = size[0] - 1;
+    m_start[1] = rand() % ((size[1] - 1 - 1) - 1 + 1) + 1;
+
+    // first randomizing ..
+    for (int i = 0; i < size[0]; i++)
+    {
+        for (int j = 0; j < size[1]; j++)
+        {
+            rand() % 2 == 0 ? xwall[i][j] = ' ' : xwall[i][j] = '*';
+            if (i == 0 || j == 0 || i == size[0] - 1 || j == size[1] - 1)
+            {
+                xwall[i][j] = '*';
+            }
+        }
+    }
+    xwall[m_end[0]][m_end[1]] = ' ';
+    xwall[m_start[0]][m_start[1]] = ' ';
+}
+void Map::show_xmap(int *loc)
+{
+    int i, j;
+    std::cout << "\n   ";
+    for (int l = 0; l < size[1]; l++)
+    {
+        if (l >= 9)
+        {
+            std::cout << l << " ";
+        }
+        else
+        {
+            std::cout << l << "  ";
+        }
+    }
+    std::cout << "\n";
+    // 24 + 25*3 +
+    // 12 + 11*2 + 6
+    for (int l = 0; l < (size[1] + (size[1] - 1) * 2 + 6); l++)
+    {
+        std::cout << "_";
+    }
+    std::cout << "\n";
+
+    for (i = 0; i < size[0]; i++)
+    {
+        std::cout << "\n|  ";
+        for (j = 0; j < size[1]; j++)
+        {
+            if (i == loc[0] && j == loc[1])
+            {
+                std::cout << "V  ";
+            }
+            else
+            {
+                std::cout << xwall[i][j] << "  ";
+            }
+        }
+        std::cout << "|" << i << "\n";
+    }
+};
+void Map::show_xmap()
+{
+    int i, j;
+    std::cout << "\n   ";
+    for (int l = 0; l < size[1]; l++)
+    {
+        if (l >= 9)
+        {
+            std::cout << l << " ";
+        }
+        else
+        {
+            std::cout << l << "  ";
+        }
+    }
+    std::cout << "\n";
+    // 24 + 25*3 +
+    // 12 + 11*2 + 6
+    for (int l = 0; l < (size[1] + (size[1] - 1) * 2 + 6); l++)
+    {
+        std::cout << "_";
+    }
+    std::cout << "\n";
+
+    for (i = 0; i < size[0]; i++)
+    {
+        std::cout << "\n|  ";
+        for (j = 0; j < size[1]; j++)
+        {
+            std::cout << xwall[i][j] << "  ";
+        }
+        std::cout << "|" << i << "\n";
+    }
+}
 inline Map *Map::Laby;
