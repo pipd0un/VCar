@@ -11,9 +11,9 @@ namespace Io
         void generateScheme(char **, int *);
         void cleanScheme();
         ~File() { delete creator; };
-        void seek(int &, int[2], int);
+        void seek(int &, int[2], int,std::string);
         static File *getFile();
-        int bring_line2mem();
+        int bring_line2mem(std::string);
         void set_path(std::string);
 
     protected:

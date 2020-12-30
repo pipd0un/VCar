@@ -16,7 +16,6 @@ class Car {
 
     public :
         Car(Map*,std::string);
-        void push(Map*);
         void _push(Map*);
         bool isFinish(int[]); // is needed for main loop
         int* getLocale();

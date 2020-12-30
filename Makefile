@@ -26,7 +26,8 @@ SRC		:= \
 # define include directory
 INCLUDE	:= inc \
 		   inc/custom \
-		   inc/Dependencies
+		   inc/Dependencies \
+		   inc/primary
 
 # define lib directory
 LIB		:= lib

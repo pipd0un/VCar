@@ -1,9 +1,129 @@
-#include "main/map.h"
+#include "primary/map.h"
 #include <iostream>
 #include <fstream>
 #include <time.h>
 
 // private
+int Map::cross_dig2closer(int y, int x)
+{
+    int diff;
+    int length = 1000;
+    int holes = 0;
+    for (int i = 0; i < size[0]; i++)
+    {
+        if (xwall[y][i] == ' ')
+        {
+            holes++;  // it counts ' ' in laby
+        };
+    }
+    if (holes >= 1)
+    {
+        for (int i = 0; i < size[0]; i++)
+        {
+            if (xwall[y][i] == ' ')
+            {
+                if (m_end[1] > m_start[1])
+                {
+                    if (abs(x - i) <= length)
+                    {
+                        diff = x - i;
+                        length = abs(x - i);
+                    }
+                }
+                else
+                {
+                    if (abs(x - i) < length)
+                    {
+                        diff = x - i;
+                        length = abs(x - i);
+                    }
+                }
+            };
+        }
+    }
+    else
+    {
+        xwall[y][x] = ' ';
+        return x;
+    }
+    if (diff > 0)
+    {
+        for (int i = x; i >= x - (diff); i--)
+        {
+            xwall[y + 1][i] = ' ';
+            //std::cout << "xwall[" << y + 1 << "][" << i << "] digged \n";
+        }
+    }
+    else if (diff < 0)
+    {
+        for (int i = x; i <= x - (diff); i++)
+        {
+            xwall[y + 1][i] = ' ';
+            //std::cout << "xwall[" << y + 1 << "][" << i << "] digged \n";
+        }
+    }
+    return x - diff;
+}
+int Map::dig2closer(int y, int x)
+{
+    int diff;
+    int length = 1000;
+    int holes = 0;
+    for (int i = 0; i < size[0]; i++)
+    {
+        if (xwall[y][i] == ' ')
+        {
+            holes++;
+        };
+    }
+    if (holes >= 1)
+    {
+        for (int i = 0; i < size[0]; i++)
+        {
+            if (xwall[y][i] == ' ')
+            {
+                if (m_end[1] > m_start[1])
+                {
+                    if (abs(x - i) < length)
+                    {
+                        diff = x - i;
+                        length = abs(x - i);
+                    }
+                }
+                else
+                {
+                    if (abs(x - i) <= length)
+                    {
+                        diff = x - i;
+                        length = abs(x - i);
+                    }
+                }
+            };
+        }
+    }
+    else
+    {
+        xwall[y][x] = ' ';
+        return x;
+    }
+    if (diff > 0)
+    {
+        for (int i = x; i >= x - (diff); i--)
+        {
+            xwall[y - 1][i] = ' ';
+            //std::cout << "xwall[" << y - 1 << "][" << i << "] digged \n";
+        }
+    }
+    else if (diff < 0)
+    {
+        for (int i = x; i <= x - (diff); i++)
+        {
+            xwall[y - 1][i] = ' ';
+            //std::cout << "xwall[" << y - 1 << "][" << i << "] digged \n";
+        }
+    }
+    return x - diff;
+};
 void Map::map_safeAlloc()
 {
     xwall = (char **)malloc(size[0] * sizeof(char *));
@@ -43,55 +163,56 @@ void Map::map_deAlloc()
         free(xwall);
     }
 }
+void Map::auto_config()
+{
+    int x, y;
+    x = m_end[1];
+    y = m_end[0];
+
+    // config
+    // first way digging.
+    xwall[m_end[0] + 1][m_end[1]] = ' ';
+    xwall[m_start[0] - 1][m_start[1]] = ' ';
+
+    while (y != m_start[0] - 2)
+    {
+        if (xwall[y + 2][x] == ' ')
+        {
+            //std::cout << "xwall[" << y + 2 << "][" << x << "] : clean ..\n";
+            y++;
+        }
+        else if (xwall[y + 2][x] == '*')
+        {
+            //std::cout << "xwall[" << y + 2 << "][" << x << "] : should be dig ..\n";
+            x = dig2closer(y + 2, x);
+            //std::cout << "new x : " << x << "\n";
+        }
+    }
+    // checking way to dig
+    // cross digging
+    std::cout << "started to cross digging ..."
+              << "\n";
+
+    x = m_start[1];
+    y = m_start[0];
+
+    while (y != m_end[0] + 2)
+    {
+        if (xwall[y - 2][x] == ' ')
+        {
+            //std::cout << "xwall[" << y - 2 << "][" << x << "] : clean ..\n";
+            y--;
+        }
+        else if (xwall[y - 2][x] == '*')
+        {
+            //std::cout << "xwall[" << y - 2 << "][" << x << "] : should be dig ..\n";
+            x = cross_dig2closer(y - 2, x);
+            //std::cout << "new x : " << x << "\n";
+        }
+    }
+}
 
 // public
-void Map::config_manual(int ans)
-{
-    int term = 0;
-    int points;
-    int edge = size[0] * size[1];
-    if (ans == 1)
-    {
-        while (1)
-        {
-            std::cout << "how many points you wanna change ? : ";
-            std::cin >> points;
-            if (ans >= edge || ans <= 0)
-            {
-                std::cout << "\nWrong input ..\n";
-                std::cout << "> ";
-            }
-            else
-            {
-                break;
-            }
-        }
-        while (term < points)
-        {
-            int i, j;
-            std::cout << "Location[ ][ ] : ";
-            std::cin >> i;
-            std::cout << ",";
-            std::cin >> j;
-            std::cout << "\n";
-            if (xwall[i][j] == ' ')
-            {
-                xwall[i][j] = '*';
-            }
-            else
-            {
-                xwall[i][j] = ' ';
-            }
-
-            term++;
-        }
-    }
-    else if (ans == -1)
-    {
-        std::cout << "Okay, I wont config your map !\n";
-    }
-    std::cout << "Successfully configurated !\n";
-}
 int *Map::getSize()
 {
     return size;
@@ -108,187 +229,20 @@ Map *Map::getLaby()
     }
     return Laby;
 };
-void Map::setLaby()
-{
-    m_end[0] = 0;
-    m_end[1] = 7;
-    m_start[0] = 16;
-    m_start[1] = 9;
-    for (int i = 0; i < 17; i++)
-    {
-        for (int j = 0; j < 17; j++)
-        {
-            wall[i][j] = '*';
-            if (i == 0)
-            {
-                if (j == 7)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 1)
-            {
-                if (j != 8 && j != 0 && j != 16)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 2)
-            {
-                if (j == 1 || j == 5 || j == 9 || j == 15)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 3)
-            {
-                if (j != 0 && j != 2 && j != 6 && j != 10 && j != 16)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 4)
-            {
-                if (j == 1 || j == 3 || j == 7 || j == 11)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 5)
-            {
-                if (j != 0 && j != 2 && j != 8 && j != 10 && j != 12 && j != 16)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 6)
-            {
-                if (j == 3 || j == 9 || j == 11 || j == 13 || j == 15)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 7)
-            {
-                if (j != 0 && j != 8 && j != 10 && j != 12 && j != 14 && j != 16)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 8)
-            {
-                if (j == 1 || j == 5 || j == 9 || j == 11 || j == 15)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 9)
-            {
-                if (j != 0 && j != 4 && j != 16 && j != 10)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 10)
-            {
-                if (j == 1 || j == 3 || j == 5 || j == 11 || j == 13)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 11)
-            {
-                if (j != 0 && j != 2 && j != 4 && j != 6 && j != 12 && j != 16)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 12)
-            {
-                if (j == 5 || j == 3 || j == 15)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 13)
-            {
-                if (j != 0 && j != 14 && j != 4 && j != 6 && j != 12 && j != 16)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 14)
-            {
-                if (j == 1 || j == 7 || j == 15 || j == 11 || j == 13)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 15)
-            {
-                if (j != 0 && j != 8 && j != 16 && j != 12)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-            if (i == 16)
-            {
-                if (j == 9)
-                {
-                    wall[i][j] = ' ';
-                }
-            }
-        }
-    }
-};
-Map *Map::show_map()
-{
-    int i, j;
-    for (i = 0; i < 17; i++)
-    {
-        std::cout << "|  ";
-        for (j = 0; j < 17; j++)
-        {
-            std::cout << wall[i][j] << "  ";
-        }
-        std::cout << "|" << i << "\n";
-    }
-    return this;
-};
 int *Map::get_start_loc()
 {
     return m_start;
-}
-Map *Map::Render(int location[])
-{
-    wall[location[0]][location[1]] = 'V';
-    return this;
 }
 int *Map::get_end_loc()
 {
     return m_end;
 }
-char Map::getBlocks(int i, int j)
-{
-    return wall[i][j];
-}
-void Map::clean_map()
-{
-    for (int i = 0; i < 17; i++)
-    {
-        for (int j = 0; j < 17; j++)
-        {
-            if (wall[i][j] == 'V')
-            {
-                wall[i][j] = ' ';
-            }
-        }
-    }
-}
 
-//redesigneds
-void Map::setLabyFromScheme()
+
+//redesigneds also public
+void Map::generateLabyFromScheme()
 {
+    map_deAlloc();
     // size[2] = {i,j};
     char ch;
     int row = 0;
@@ -363,8 +317,8 @@ void Map::generateLab()
     size[0] = rand() % (25 - 10 + 1) + 10;
     size[1] = rand() % (25 - 10 + 1) + 10;
     map_safeAlloc();
-    m_end[0] = 0;
-    m_end[1] = rand() % ((size[1] - 1 - 1) - 1 + 1) + 1;
+    m_end[0] = 0;                                        //y
+    m_end[1] = rand() % ((size[1] - 1 - 1) - 1 + 1) + 1; //x
     m_start[0] = size[0] - 1;
     m_start[1] = rand() % ((size[1] - 1 - 1) - 1 + 1) + 1;
 
@@ -382,6 +336,7 @@ void Map::generateLab()
     }
     xwall[m_end[0]][m_end[1]] = ' ';
     xwall[m_start[0]][m_start[1]] = ' ';
+    auto_config();
 }
 void Map::show_xmap(int *loc)
 {

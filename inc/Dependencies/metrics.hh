@@ -33,7 +33,4 @@ inline void operator delete(void *memory, size_t size)
 	PrintMemoryUsage();
 	free(memory);
 }
-
-
-
 #endif //..

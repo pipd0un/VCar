@@ -1,7 +1,7 @@
 #include "custom/custom.hpp"
 #include <fstream>
 #include <cstdlib>
-#include "main/map.h"
+#include "primary/map.h"
 
 namespace Io
 {
@@ -41,8 +41,9 @@ namespace Io
         }
         fout.close();
     };
-    int File::bring_line2mem()
+    int File::bring_line2mem(std::string name)
     {
+        m_path = "bin/" + name + ".txt";
         // open the doc and count lines
         std::ifstream in;
         std::string line;
@@ -56,10 +57,6 @@ namespace Io
         in.close();
         return ct;
     }
-    void File::set_path(std::string name)
-    {
-        m_path = "bin/" + name + ".txt";
-    }
     File *File::getFile()
     {
         if (!creator)
@@ -68,8 +65,9 @@ namespace Io
         }
         return creator;
     }
-    void File::seek(int &ct, int locale[2], int way)
+    void File::seek(int &ct, int locale[2], int way,std::string name)
     {
+        m_path = "bin/" + name + ".txt";
         std::ofstream fout;
         // opens an existing csv file or creates a new file.
 
@@ -90,32 +88,6 @@ namespace Io
         fout.close();
     };
     inline File *File::creator;
-
-    int ask_config()
-    {
-        // then complete specific points
-        std::cout << "\n Want to config ?(y/n) : ";
-        char ans;
-        while (1)
-        {
-            std::cin >> ans;
-            if (ans == 'y' || ans == 'n')
-            {
-                break;
-            }
-            std::cout << "\nWrong input ..\n";
-            std::cout << "> ";
-        }
-        //std::cout << "answer : " << ans ;
-        if (ans == 'y')
-        {
-            return 1;
-        }
-        else
-        {
-            return -1;
-        }
-    }
 }; // namespace Io
 namespace Memory
 {
