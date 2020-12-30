@@ -344,11 +344,12 @@ void Map::setLabyFromScheme()
         std::cout << "Folder can not open...";
         std::cin.get();
     }
+    in.close();
     m_end[0] = 0;
     m_end[1] = 7;
     m_start[0] = 14;
     m_start[1] = 8;
-    in.close();
+    
 }
 char Map::_getBlocks(int i, int j)
 {
