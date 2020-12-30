@@ -21,7 +21,7 @@ OUTPUT	:= bin
 SRC		:= \
 		   src \
 		   src/custom \
-		   src/main 
+		   src/primary 
 
 # define include directory
 INCLUDE	:= inc \

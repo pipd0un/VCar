@@ -323,19 +323,16 @@ void Map::setLabyFromScheme()
                 {
                     xwall[i][j] = ' ';
                 }
-
-                /*
-                if (i == 0 && xwall[i][j] == '0')
+                if (i == 0 && xwall[i][j] == ' ')
                 {
                     m_end[0] = i;
                     m_end[1] = j;
                 }
-                if (i == size[0] - 1 && xwall[i][j] == '0')
+                if (i == size[0] - 1 && xwall[i][j] == ' ')
                 {
                     m_start[0] = i;
                     m_start[1] = j;
                 }
-                */
             }
         }
     }
@@ -345,11 +342,6 @@ void Map::setLabyFromScheme()
         std::cin.get();
     }
     in.close();
-    m_end[0] = 0;
-    m_end[1] = 7;
-    m_start[0] = 14;
-    m_start[1] = 8;
-    
 }
 char Map::_getBlocks(int i, int j)
 {
