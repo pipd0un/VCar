@@ -99,6 +99,27 @@ namespace Memory
         else
             std::cout << "Resource cleaned successfully\n";
     };
+    
+    void Rotation::get()
+    {
+        for (int i = 0; i < m_mov; i++)
+        {
+            std::cout << "Line : ";
+            std::cout << m_rot[i][0] << ", " << m_rot[i][1] << ", " << m_rot[i][2] << ", " << m_rot[i][3];
+            std::cout << "\n";
+        }
+    };
+    void Rotation::optimise()
+    {
+        create();
+        do{
+            semi_optimise();
+        }
+        while (!is_optimised());
+        std::cout << "\nTotally optimised\n";
+    }
+
+    // private funcs
     void Rotation::create()
     {
         rot_safeAlloc();
@@ -123,25 +144,6 @@ namespace Memory
         in.close();
         std::cout << "\nRotation is ready to optimise now !\n";
     };
-    void Rotation::get()
-    {
-        for (int i = 0; i < m_mov; i++)
-        {
-            std::cout << "Line : ";
-            std::cout << m_rot[i][0] << ", " << m_rot[i][1] << ", " << m_rot[i][2] << ", " << m_rot[i][3];
-            std::cout << "\n";
-        }
-    };
-    void Rotation::optimise()
-    {
-        do{
-            semi_optimise();
-        }
-        while (!is_optimised());
-        std::cout << "\nTotally optimised\n";
-    }
-
-    // private funcs
     void Rotation::rot_safeAlloc()
     {
         m_rot = (int **)malloc(m_mov * sizeof(int *));

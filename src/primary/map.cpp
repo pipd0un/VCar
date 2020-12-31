@@ -344,7 +344,6 @@ void Map::show_race(Car *c[], int ct)
 {
 
     int i, j;
-    int count = 0;
     std::cout << "\n   ";
     for (int l = 0; l < size[1]; l++)
     {
@@ -400,7 +399,6 @@ void Map::show_race(Car *c[], int ct)
 void Map::show_map(Car c)
 {
     int i, j;
-    int count = 0;
     std::cout << "\n   ";
     for (int l = 0; l < size[1]; l++)
     {
@@ -441,7 +439,6 @@ void Map::show_map(Car c)
 void Map::show_map()
 {
     int i, j;
-    int count = 0;
     std::cout << "\n   ";
     for (int l = 0; l < size[1]; l++)
     {
