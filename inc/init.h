@@ -2,9 +2,11 @@
 #define INIT_H
 
 
-#include "map.h"
-#include "car.h"
-#include "custom/cursor.h"
+#include "primary/map.h"
+#include "primary/car.h"
+#include "custom/cursor.hpp"
+#include "custom/custom.hpp"
+#include "Dependencies/metrics.hh"
 
 
 #endif //..

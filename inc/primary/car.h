@@ -1,7 +1,7 @@
 #ifndef CAR_H
 #define CAR_H
 
-#include <string>
+#include <iostream>
 
 class Map;
 
@@ -15,28 +15,45 @@ typedef enum class ways {
 class Car {
 
     public :
-        Car(Map& mapp);
-        void push(Map& m);
-        bool isFinish(int ending[]); // is needed for main loop
+        Car();
+        Car(Map*,std::string,char);
+        void _push(Map*);
+        
         int* getLocale();
-        static Map& getMap(Map&);
         int getCurr_ways();
         void show_move();
+        int get_move();
+        char getShape();
+        std::string getName();
+        
+        void setName(std::string);
+        void setLaby(Map*);
+        void setShape(char);
+        bool isFinish(int[]); // is needed for main loop
         
         
     private :
+        
         int m_locale[2];        // location
         bool m_open_ways[4];    // available moves
         way m_last_move;        //
         int m_CURRENT_WAYS;     // available move number
+        std::string name;
+        char shape;
 
     private:
-        void set_car_loc(Map&); // needed for constructor (first location)
-        void check_ways(Map&);  // configures the next move where it should be
+        void set_car_loc(Map*); // needed for constructor (first location)
+        void check_ways(Map*);  // configures the next move where it should be
         void lock_back();       // helps car to go ahead
         void reset_checks();    // locks all ways at first 
         void countOpenWay();    // this will be important if I work with decision points
         bool go(way);           // sets car's new location after move
         void save_move(way);    // 
+
+    // redesigned
+        void _check_ways(Map*);
+
 };
+
+
 #endif
