@@ -211,6 +211,7 @@ void Map::auto_config()
             //std::cout << "new x : " << x << "\n";
         }
     }
+    system("cls");
 }
 
 // public
@@ -311,6 +312,7 @@ char Map::_getBlocks(int i, int j)
 }
 void Map::generateLab()
 {
+    anyOneFinishes = false;
     srand(time(0));
     //int randNum = rand()%(max-min + 1) + min;
     size = (int *)malloc(2 * sizeof(int));
@@ -337,6 +339,63 @@ void Map::generateLab()
     xwall[m_end[0]][m_end[1]] = ' ';
     xwall[m_start[0]][m_start[1]] = ' ';
     auto_config();
+}
+void Map::show_race(Car *c[], int ct)
+{
+
+    int i, j;
+    int count = 0;
+    std::cout << "\n   ";
+    for (int l = 0; l < size[1]; l++)
+    {
+        if (l >= 9)
+        {
+            std::cout << l << " ";
+        }
+        else
+        {
+            std::cout << l << "  ";
+        }
+    }
+    std::cout << "\n";
+    // 24 + 25*3 +
+    // 12 + 11*2 + 6
+    for (int l = 0; l < (size[1] + (size[1] - 1) * 2 + 6); l++)
+    {
+        std::cout << "_";
+    }
+    std::cout << "\n";
+    for (i = 0; i < size[0]; i++)
+    {
+        std::cout << "\n|  ";
+        for (j = 0; j < size[1]; j++)
+        {
+            for (int count = 0; count < ct; count++)
+            {
+                if (i == c[count]->getLocale()[0] && j == c[count]->getLocale()[1])
+                {
+                    std::cout << c[count]->getShape() << "  ";
+                }
+                else
+                {
+                    std::cout << xwall[i][j] << "  ";
+                }
+            }
+        }
+        std::cout << "|" << i << "\n";
+    }
+    for (int count = 0; count < ct; count++)
+    {
+        if (c[count]->getLocale()[0] == m_end[0] && c[count]->getLocale()[1] == m_end[1])
+        {
+            std::cout << "Winner : " << c[count]->getName() << "\n";
+            anyOneFinishes = true;
+        }
+        else
+        {
+            anyOneFinishes = false;
+        }
+    }
 }
 void Map::show_map(Car c)
 {
@@ -379,9 +438,10 @@ void Map::show_map(Car c)
         std::cout << "|" << i << "\n";
     }
 }
-void Map::show_xmap()
+void Map::show_map()
 {
     int i, j;
+    int count = 0;
     std::cout << "\n   ";
     for (int l = 0; l < size[1]; l++)
     {
@@ -402,7 +462,6 @@ void Map::show_xmap()
         std::cout << "_";
     }
     std::cout << "\n";
-
     for (i = 0; i < size[0]; i++)
     {
         std::cout << "\n|  ";
@@ -412,5 +471,9 @@ void Map::show_xmap()
         }
         std::cout << "|" << i << "\n";
     }
+}
+bool Map::isAnyOneFinishes()
+{
+    return anyOneFinishes;
 }
 inline Map *Map::Laby;

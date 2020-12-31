@@ -41,7 +41,7 @@ namespace Io
         }
         fout.close();
     };
-    int File::bring_line2mem(std::string name)
+    int File::howManyMovesInFile(std::string name)
     {
         m_path = "bin/" + name + ".txt";
         // open the doc and count lines
@@ -134,10 +134,10 @@ namespace Memory
     };
     void Rotation::optimise()
     {
-        while (!is_optimised())
-        {
+        do{
             semi_optimise();
         }
+        while (!is_optimised());
         std::cout << "\nTotally optimised\n";
     }
 

@@ -18,7 +18,7 @@ class Car {
         Car();
         Car(Map*,std::string,char);
         void _push(Map*);
-        bool isFinish(int[]); // is needed for main loop
+        
         int* getLocale();
         int getCurr_ways();
         void show_move();
@@ -29,10 +29,11 @@ class Car {
         void setName(std::string);
         void setLaby(Map*);
         void setShape(char);
-        
+        bool isFinish(int[]); // is needed for main loop
         
         
     private :
+        
         int m_locale[2];        // location
         bool m_open_ways[4];    // available moves
         way m_last_move;        //

@@ -2,38 +2,30 @@
 
 int main()
 {
-	//test 5 auto_config test
+	Map::getLaby()->generateLab();
+	Map *instance = Map::getLaby();
+
+	Car *car1 = new Car(Map::getLaby(), "car1", 'K'); // creating a car object
+	Car *car2 = new Car(Map::getLaby(), "car2", 'V');
+	Car *car3 = new Car(Map::getLaby(), "car2", 'L');
+
+	Car *cars[1];
+	cars[0] = car1;
+	cars[1] = car2;
+	cars[2] = car3;
+
+	while (!instance->isAnyOneFinishes())
 	{
-		system("cls");
-		Map::getLaby()->generateLab();
-		std::string name = "car1";
-		
-		Car car1 = Car(Map::getLaby(), name,'K'); // creating a car object
-		int ct = 0;							  // this will count car's move number
-
-		// main loop : till car reaches the finish point
-		system("cls");
-		while (!car1.isFinish(Map::getLaby()->get_end_loc()))
-		{
-			SetCursorPosition(0, 0);
-			std::cout << "Move count : " << ct << "           \n";
-			car1.show_move();
-			car1._push(Map::getLaby());					 // it pushes car to aynwhere
-			Map::getLaby()->show_map(car1); 			 // show_map() recommended but not needed.
-			ct++;										 // If remove show_map() and usleep() the car should get
-														 // finish immediately without showing you the process .
-			Io::File::getFile()->seek(ct, car1.getLocale(), car1.get_move(),name);
-		}
-		std::cout << "Hello world! \n";
-		std::cout << "Car " << name << " Shushified ...\n";
-
-		Memory::Rotation rot = Memory::Rotation(Io::File::getFile()->bring_line2mem(name), name);rot.create();
-		rot.create();
-		rot.get(); // recommended but not needed , just for seeing the non-optimised rotation
-		rot.optimise();
-
-		Map::getLaby()->show_xmap();
+		SetCursorPosition(0, 0);
+		car1->_push(instance);
+		car2->_push(instance);
+		car3->_push(instance);
+		instance->show_race(cars, 2); // join to input how many cars you wanna see on map
 	}
 
-	system("pause");
+	delete car1;
+	delete car2;
+	delete car3;
+	
+	std::cin.get();
 }

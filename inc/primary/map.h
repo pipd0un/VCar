@@ -5,15 +5,16 @@ class Car;
 class Map
 {
 public:
+    bool isAnyOneFinishes();
+    void show_race(Car*[],int);
     void show_map(Car);
+    void show_map();
     void generateLabyFromScheme();
-    void show_xmap();
     void generateLab();
     int *getSize();
 
     static Map *getLaby();
     char **get_map();
-    void setLaby();
     int *get_start_loc();
     int *get_end_loc();
     ~Map()
@@ -37,6 +38,7 @@ private:
     int *size;
     int m_start[2];
     int m_end[2];
+    bool anyOneFinishes;
 };
 
 #endif

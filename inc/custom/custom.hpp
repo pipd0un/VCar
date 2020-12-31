@@ -13,7 +13,7 @@ namespace Io
         ~File() { delete creator; };
         void seek(int &, int[2], int,std::string);
         static File *getFile();
-        int bring_line2mem(std::string);
+        int howManyMovesInFile(std::string);
         void set_path(std::string);
 
     protected:
