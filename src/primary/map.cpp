@@ -341,6 +341,7 @@ void Map::generateLab()
 void Map::show_map(Car c)
 {
     int i, j;
+    int count = 0;
     std::cout << "\n   ";
     for (int l = 0; l < size[1]; l++)
     {
@@ -361,7 +362,6 @@ void Map::show_map(Car c)
         std::cout << "_";
     }
     std::cout << "\n";
-
     for (i = 0; i < size[0]; i++)
     {
         std::cout << "\n|  ";

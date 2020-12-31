@@ -7,7 +7,6 @@ class Map
 public:
     void show_map(Car);
     void generateLabyFromScheme();
-    void show_xmap(int*,char);
     void show_xmap();
     void generateLab();
     int *getSize();

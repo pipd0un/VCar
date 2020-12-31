@@ -15,6 +15,7 @@ typedef enum class ways {
 class Car {
 
     public :
+        Car();
         Car(Map*,std::string,char);
         void _push(Map*);
         bool isFinish(int[]); // is needed for main loop
@@ -24,6 +25,11 @@ class Car {
         int get_move();
         char getShape();
         std::string getName();
+        
+        void setName(std::string);
+        void setLaby(Map*);
+        void setShape(char);
+        
         
         
     private :

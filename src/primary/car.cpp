@@ -3,6 +3,22 @@
 #include <time.h>	// srand( time() ) seeding
 
 // publics
+
+Car::Car(){};
+void Car::setLaby(Map* mapp){
+    m_CURRENT_WAYS = 0;
+    set_car_loc(mapp);
+    for(int i;i<4;i++){
+        m_open_ways[i] = 0;
+    }
+}
+void Car::setName(std::string name){
+    this->name = name;
+}
+void Car::setShape(char shape){
+    this->shape = shape;
+}
+
 Car::Car(Map* mapp,std::string n,char shape) : name(n),shape(shape) {
     srand(time(0));
     m_CURRENT_WAYS = 0;
