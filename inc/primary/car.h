@@ -15,13 +15,14 @@ typedef enum class ways {
 class Car {
 
     public :
-        Car(Map*,std::string);
+        Car(Map*,std::string,char);
         void _push(Map*);
         bool isFinish(int[]); // is needed for main loop
         int* getLocale();
         int getCurr_ways();
         void show_move();
         int get_move();
+        char getShape();
         std::string getName();
         
         
@@ -31,6 +32,7 @@ class Car {
         way m_last_move;        //
         int m_CURRENT_WAYS;     // available move number
         std::string name;
+        char shape;
 
     private:
         void set_car_loc(Map*); // needed for constructor (first location)

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <time.h>
+#include "primary/car.h"
 
 // private
 int Map::cross_dig2closer(int y, int x)
@@ -13,7 +14,7 @@ int Map::cross_dig2closer(int y, int x)
     {
         if (xwall[y][i] == ' ')
         {
-            holes++;  // it counts ' ' in laby
+            holes++; // it counts ' ' in laby
         };
     }
     if (holes >= 1)
@@ -238,7 +239,6 @@ int *Map::get_end_loc()
     return m_end;
 }
 
-
 //redesigneds also public
 void Map::generateLabyFromScheme()
 {
@@ -338,7 +338,7 @@ void Map::generateLab()
     xwall[m_start[0]][m_start[1]] = ' ';
     auto_config();
 }
-void Map::show_xmap(int *loc)
+void Map::show_map(Car c)
 {
     int i, j;
     std::cout << "\n   ";
@@ -367,9 +367,9 @@ void Map::show_xmap(int *loc)
         std::cout << "\n|  ";
         for (j = 0; j < size[1]; j++)
         {
-            if (i == loc[0] && j == loc[1])
+            if (i == c.getLocale()[0] && j == c.getLocale()[1])
             {
-                std::cout << "V  ";
+                std::cout << c.getShape() << "  ";
             }
             else
             {
@@ -378,7 +378,7 @@ void Map::show_xmap(int *loc)
         }
         std::cout << "|" << i << "\n";
     }
-};
+}
 void Map::show_xmap()
 {
     int i, j;

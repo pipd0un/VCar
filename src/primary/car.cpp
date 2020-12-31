@@ -3,7 +3,7 @@
 #include <time.h>	// srand( time() ) seeding
 
 // publics
-Car::Car(Map* mapp,std::string n) : name(n) {
+Car::Car(Map* mapp,std::string n,char shape) : name(n),shape(shape) {
     srand(time(0));
     m_CURRENT_WAYS = 0;
     set_car_loc(mapp);
@@ -32,7 +32,9 @@ int Car::getCurr_ways(){
 std::string Car::getName(){
     return name;
 }
-
+char Car::getShape(){
+    return shape;
+}
 
 // privates ..
 bool Car::go(way w){

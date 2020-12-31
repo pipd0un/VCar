@@ -8,7 +8,7 @@ int main()
 		Map::getLaby()->generateLab();
 		std::string name = "car1";
 		
-		Car car1 = Car(Map::getLaby(), name); // creating a car object
+		Car car1 = Car(Map::getLaby(), name,'K'); // creating a car object
 		int ct = 0;							  // this will count car's move number
 
 		// main loop : till car reaches the finish point
@@ -19,7 +19,7 @@ int main()
 			std::cout << "Move count : " << ct << "           \n";
 			car1.show_move();
 			car1._push(Map::getLaby());					 // it pushes car to aynwhere
-			//Map::getLaby()->show_xmap(car1.getLocale()); // show_map() recommended but not needed.
+			Map::getLaby()->show_map(car1); 			 // show_map() recommended but not needed.
 			ct++;										 // If remove show_map() and usleep() the car should get
 														 // finish immediately without showing you the process .
 			Io::File::getFile()->seek(ct, car1.getLocale(), car1.get_move(),name);
