@@ -35,11 +35,12 @@ namespace Memory
             m_path = "bin/" + name + ".txt";
         };
         ~Rotation();
-        void create(); // (D)
+        
         void get();    // (D)
         void optimise();
 
     private:                  // private functions
+        void create(); // (D)
         void rot_safeAlloc(); // (D)
         int **any_safeAlloc(int);
         void clean_rot();
