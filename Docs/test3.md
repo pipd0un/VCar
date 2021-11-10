@@ -1,5 +1,5 @@
 - Wanna watch a couple of stupid cars race ? <br/>
-** then you should create a your car objects  : <br/>
+** then you should create your car objects  : <br/>
 ``` Car *car1 = new Car(Map::getLaby(), "car1", 'K'); ``` <br/>
 ``` Car *car2 = new Car(Map::getLaby(), "car1", 'L'); ``` <br/>
 ** need to take it on heap sorry dude. <br/>
