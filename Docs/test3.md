@@ -6,7 +6,7 @@
 ``` cars[0] = car1; ``` <br/>
 ``` cars[1] = car2; ``` <br/>
 ** Of course you can write it with your style 
-** In the end of coding you need a object array do not forget !
+** In the end of coding you need an object array do not forget !
 
 - Now lets create main racing loop : <br/>
 ``` while ( Map::getLaby()->isAnyOneFinishes()){ ``` <br/>
