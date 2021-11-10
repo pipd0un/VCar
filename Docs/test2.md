@@ -1,5 +1,5 @@
-- If you want to create labyrinth handmade
-** then you should create a file  :
+- If you want to create labyrinth handmade <br/>
+** then you should create a file  :<br/>
 ``` Data/LabScheme.txt ```
 - and put inside like       <br/>
 ``` ***************0****``` <br/>
@@ -17,29 +17,29 @@
 ** asterics are walls
 
 - Creating a rotation within a travel ;
-** You should create Io reminder
+** You should create Io reminder <br/>
 ``` Io::File::getFile()->set_path( car1.getName() ); ```
-** then can seek the moves
-``` int counter = 0; ```
-``` while ( Map::getLaby()->isAnyOneFinishes()){ ```
-``` SetCursorPosition(0, 0); ``` 
-``` car._push(Map::getLaby()); ```
-``` counter++; ```
-``` Map::getLaby()->show_map(car1); ```
-``` Io::File::getFile()->seek( ct , car1->getLocale() , car1->getName()  ); ```
-```} ```
+** then can seek the moves <br/>
+``` int counter = 0; ``` <br/>
+``` while ( Map::getLaby()->isAnyOneFinishes()){ ``` <br/>
+``` SetCursorPosition(0, 0); ```  <br/>
+``` car._push(Map::getLaby()); ``` <br/>
+``` counter++; ``` <br/>
+``` Map::getLaby()->show_map(car1); ``` <br/>
+``` Io::File::getFile()->seek( ct , car1->getLocale() , car1->getName()  ); ``` <br/>
+```} ``` <br/>
 
 - after all the turn comes optimisation
 ** You can optimise the rotation with a couple lines
-``` Memory::Rotation rotation = Memory::Rotation( Io::File::getFile()->howManyMovesInFile() , car1->getName() ); ```
-``` rotation.optimise(); ```
+``` Memory::Rotation rotation = Memory::Rotation( Io::File::getFile()->howManyMovesInFile() , car1->getName() ); ``` <br/>
+``` rotation.optimise(); ``` <br/>
 
 - All done
 - A trick : 
 ** If you want to make your own labyrinth but want it fast
 ** you can generate and config by yourself;
-``` Map::getLaby()->generateLab(); ```
-```	Io::File::getFile()->generateScheme(Map::getLaby()->get_map(),Map::getLaby()->getSize()); ```
+``` Map::getLaby()->generateLab(); ``` <br/>
+```	Io::File::getFile()->generateScheme(Map::getLaby()->get_map(),Map::getLaby()->getSize()); ``` <br/>
 ** generating scheme will paste labyrinth to Data/LabScheme.txt as zeros and asterics
 ** then you can change it as you wish
 
