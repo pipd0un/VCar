@@ -37,9 +37,9 @@
 - All done
 - A trick : 
 ** If you want to make your own labyrinth but want it fast
-** you can generate and config by yourself;
+** you can generate and config by yourself; <br/>
 ``` Map::getLaby()->generateLab(); ``` <br/>
 ```	Io::File::getFile()->generateScheme(Map::getLaby()->get_map(),Map::getLaby()->getSize()); ``` <br/>
-** generating scheme will paste labyrinth to Data/LabScheme.txt as zeros and asterics
+** generating scheme will paste labyrinth to Data/LabScheme.txt as zeros and asterics <br/>
 ** then you can change it as you wish
 
