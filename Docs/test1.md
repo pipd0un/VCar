@@ -16,7 +16,7 @@
 ``` SetCursorPosition(0, 0); ```                     <br/>
 ``` car._push(Map::getLaby()); ```                   <br/>
 ``` Map::getLaby()->show_map(car1); ```              <br/>
-```} ```
+```} ```                                             <br/>
 ** if anyone finishes the race loop gonna break <br/>
 ** setting cursor position is not necessary its needed for  <br/>
 ** good console view <br/>
