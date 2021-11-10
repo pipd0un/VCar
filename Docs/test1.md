@@ -8,7 +8,7 @@
 ** These parameters are : <br/>
 - 1) Its place which car move around
 - 2) Car's name that you give is needed for file I/o  <br/>
--    and rotation optimization
+  and rotation optimization
 - 3) A special char which will be shown on map in console
 
 - now we should create main loop of our program like <br/>
