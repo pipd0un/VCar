@@ -1,6 +1,7 @@
 # VCars :)
 
->This project's first aim is being a submodule of a pathfinder algorithm <br/>
+>This project's first aim is being a test area for submodule of a pathfinder algorithm<br/>
+>Everyone can create a fast pathlocking sandbox area with binaries and test algorithm insdie it.<br/>
 >Everything included in this work is experimental and written for education <br/>
 <br/>
 Thanks a lot if you like my work or answered my questions on this way.
